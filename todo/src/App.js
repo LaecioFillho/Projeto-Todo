@@ -6,17 +6,18 @@ const App = () => {
     const ESCAPE_KEY = 27;
     const ENTER_KEY = 13;
 
-    const initialTodos = [
-        {id: 1, title: "Estudar React", checked: false},
-        {id: 2, title: "Estudar JavaScript", checked: false},
-        {id: 3, title: "Estudar TypeScript", checked: true},
-        {id: 4, title: "Estudar UI/UX", checked: false},
-    ];
-
-    const [todos,  ] = useState(initialTodos);
+    const [todos, setTodos ] = useState([]);
     const [value, setValue] = useState("");
 
     const submit = () => {
+        setTodos([
+            ...todos,
+            {
+                id: new Date().getTime(), 
+                title: value, 
+                checked: false,
+            },
+        ]);
         erase();
     }
 
@@ -26,10 +27,17 @@ const App = () => {
 
     const onKeyDown = (event) => {
         if (event.which === ENTER_KEY) {
+            submit();
             erase();
         } else if (event.which === ESCAPE_KEY) {
             erase();
         }
+    }
+
+    const onToggle = (todo) => {
+        setTodos(
+            todos.map((obj) => (obj.id === todo.id ? {...obj, checked: !todo.checked} : obj))
+        );
     }
 
     const onChange = (event) => {
@@ -52,7 +60,13 @@ const App = () => {
                 <ul className="todo-list">
                     {todos.map((todo) => (
                         <li key={todo.id.toString()}>
-                        <span className="todo">{todo.title}</span>
+                        <span className={["todo", todo.checked ? "checked" : ""].join(" ")}
+                            onClick={() => onToggle(todo)}
+                            onKeyPress={() => onToggle(todo)}
+                            role="button"
+                            tabIndex={0}>
+                            {todo.title}
+                        </span>
                         <button className="remove"><MdAutoDelete size={28}/></button>
                         </li>  
                     ))}
