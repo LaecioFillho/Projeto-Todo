@@ -37,3 +37,29 @@
     color: #ff7675;
     cursor: pointer;
 }
+
+.permission{
+    display: none;
+    text-align: center;
+    width: 180px;
+    height: 80px;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: rgb(153, 152, 152);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.permission, p{
+    color: white;
+    margin-bottom: 5px;
+}
+
+.onPermission{
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+}

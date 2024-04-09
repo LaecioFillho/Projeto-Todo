@@ -8,6 +8,7 @@ const App = () => {
 
     const [todos, setTodos ] = useState([]);
     const [value, setValue] = useState("");
+    let permission = false;
 
     const submit = () => {
         setTodos([
@@ -20,6 +21,17 @@ const App = () => {
         ]);
         erase();
     }
+
+    function onPermission(todo,permission){
+
+        if(permission == false){
+            onDelete(todo);
+        }
+    }
+
+    function onDelete(todo){
+        setTodos(todos.filter((obj) => obj.id !== todo.id));
+    };
 
     const erase = () => {
         setValue("");
@@ -67,10 +79,19 @@ const App = () => {
                             tabIndex={0}>
                             {todo.title}
                         </span>
-                        <button className="remove"><MdAutoDelete size={28}/></button>
+                        <button 
+                            className="remove"
+                            onClick={() => onPermission(todo, permission = true)}>
+                            <MdAutoDelete size={28}/>
+                        </button>
                         </li>  
                     ))}
                 </ul>
+                <div className='permission'>
+                    <p>Você deseja excluir?</p>
+                    <button className='onPermission'>Sim</button>
+                    <button className='onPermission'>Não</button>
+                </div>
             </section>
         </section>
     );
