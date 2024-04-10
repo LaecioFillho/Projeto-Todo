@@ -6,9 +6,11 @@ const App = () => {
     const ESCAPE_KEY = 27;
     const ENTER_KEY = 13;
 
+    
     const [todos, setTodos ] = useState([]);
     const [value, setValue] = useState("");
     let permission = false;
+    
 
     const submit = () => {
         setTodos([
@@ -22,9 +24,9 @@ const App = () => {
         erase();
     }
 
-    function onPermission(todo,permission){
+    function onPermission(todo, permission){
 
-        if(permission == false){
+        if(permission == true){
             onDelete(todo);
         }
     }
@@ -89,8 +91,12 @@ const App = () => {
                 </ul>
                 <div className='permission'>
                     <p>Você deseja excluir?</p>
-                    <button className='onPermission'>Sim</button>
-                    <button className='onPermission'>Não</button>
+                    <button 
+                    className='onPermission'
+                    onClick={() => onPermission(permission = true)}>Sim</button>
+                    <button 
+                    className='onPermission'
+                    onClick={() => onPermission(permission = false)}>Não</button>
                 </div>
             </section>
         </section>
